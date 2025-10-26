@@ -1,28 +1,36 @@
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import Navbar from './components/Navbar';
+import HeroCover from './components/HeroCover';
+import ContentArea from './components/ContentArea';
+import Footer from './components/Footer';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [path, setPath] = useState(window.location.pathname);
+
+  const navigate = (to) => {
+    if (to !== path) {
+      window.history.pushState({}, '', to);
+      setPath(to);
+    }
+  };
+
+  useEffect(() => {
+    const onPop = () => setPath(window.location.pathname);
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
+    <div className="min-h-screen bg-[#080808] text-zinc-100 selection:bg-red-900 selection:text-zinc-100">
+      <div className="pointer-events-none fixed inset-0 opacity-[0.06]" style={{backgroundImage:'radial-gradient(circle at 20% 10%, #ef4444 0, transparent 35%), radial-gradient(circle at 80% 40%, #7f1d1d 0, transparent 40%)'}} />
 
-export default App
+      <Navbar currentPath={path} navigate={navigate} />
+
+      {path === '/' && <HeroCover />}
+
+      <ContentArea path={path} />
+
+      <Footer />
+    </div>
+  );
+}
