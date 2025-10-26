@@ -26,7 +26,7 @@ export default function Navbar({ currentPath, navigate }) {
             <LinkButton active={currentPath === '/'} onClick={() => navigate('/')}>Home</LinkButton>
             <LinkButton active={currentPath === '/pic'} onClick={() => navigate('/pic')}>Pictures</LinkButton>
             <LinkButton active={currentPath === '/blog'} onClick={() => navigate('/blog')}>Blog</LinkButton>
-            <LinkButton active={currentPath === '/admin'} onClick={() => navigate('/admin')}>Admin</LinkButton>
+            {/* Admin intentionally omitted from navbar; accessible directly via /admin */}
           </nav>
 
           <div className="hidden sm:flex items-center gap-3">
