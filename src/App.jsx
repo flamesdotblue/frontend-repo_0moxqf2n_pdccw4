@@ -30,7 +30,7 @@ export default function App() {
 
       <ContentArea path={path} navigate={navigate} />
 
-      <Footer />
+      <Footer navigate={navigate} />
     </div>
   );
 }
