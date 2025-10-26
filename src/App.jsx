@@ -28,7 +28,7 @@ export default function App() {
 
       {path === '/' && <HeroCover />}
 
-      <ContentArea path={path} />
+      <ContentArea path={path} navigate={navigate} />
 
       <Footer />
     </div>
